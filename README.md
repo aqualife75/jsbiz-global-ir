@@ -12,9 +12,8 @@
 
 ## 📖 처음이신가요?
 
-**[사용법 가이드(docs/index.html)](docs/index.html)** 를 브라우저로 열어 보세요.
-코딩을 몰라도 따라할 수 있게 준비물 → 설치 → 실행 → 결과 확인을 단계별로 정리했습니다.
-(GitHub Pages를 켜면 이 가이드가 웹 링크로 공유됩니다: Settings → Pages → `docs` 폴더 지정)
+**👉 [사용법 가이드 바로가기](https://aqualife75.github.io/jsbiz-global-ir/)** — 코딩을 몰라도 따라할 수 있게
+준비물 → 설치 → 실행 → 결과 확인을 단계별로 정리했습니다. (저장소의 [docs/index.html](docs/index.html)과 동일)
 
 ## 설치 (Claude Code)
 

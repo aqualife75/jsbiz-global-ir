@@ -344,10 +344,11 @@ def s_stat_tiles(ctx, prs, slide, sp, meta):
         text(ctx, slide, x + 0.18, 2.5, 2.6, 0.42, t["small"], size=11.5, color="MUT")
     text(ctx, slide, 0.6, 3.35, 4, 0.35, sp.get("left_heading", ""), size=15,
          bold=True, color="HEAD")
+    rw = 4.62 if (sp.get("middle_card") or sp.get("chart")) else 11.4  # 우측 요소 없으면 전체 폭
     for i, r in enumerate(sp["left_rows"][:3]):
         y = 3.82 + i * 0.78
         icon_circle(ctx, slide, r["icon"], "SUB", 0.6, y, 0.5)
-        text(ctx, slide, 1.28, y - 0.06, 4.62, 0.72, r["text"], size=12.5, valign="middle")
+        text(ctx, slide, 1.28, y - 0.06, rw, 0.72, r["text"], size=12.5, valign="middle")
     mc = sp.get("middle_card")
     if mc:
         rect(ctx, slide, 6.2, 3.42, 3.4, 2.9, "WHITE", line="BORDER", radius=0.1)
@@ -372,18 +373,23 @@ def s_stat_tiles(ctx, prs, slide, sp, meta):
 
 
 def s_product_hero(ctx, prs, slide, sp, meta):
-    img = Image.open(ctx.asset(sp["hero_image"]))
-    iw = 5.7
-    ih = iw * img.height / img.width
-    image(ctx, slide, sp["hero_image"], 7.05, 1.75, w=iw, h=ih)
-    if sp.get("hero_caption"):
-        text(ctx, slide, 7.05, 1.75 + ih + 0.04, 5.7, 0.3, sp["hero_caption"], size=10.5,
-             color="MUT", align="center", italic=True)
+    # hero_image가 없는 텍스트 덱이면 필러를 전체 폭으로 넓혀 우아하게 강등
+    tw = 5.4
+    if sp.get("hero_image"):
+        img = Image.open(ctx.asset(sp["hero_image"]))
+        iw = 5.7
+        ih = iw * img.height / img.width
+        image(ctx, slide, sp["hero_image"], 7.05, 1.75, w=iw, h=ih)
+        if sp.get("hero_caption"):
+            text(ctx, slide, 7.05, 1.75 + ih + 0.04, 5.7, 0.3, sp["hero_caption"], size=10.5,
+                 color="MUT", align="center", italic=True)
+    else:
+        tw = 11.5
     for i, p in enumerate(sp["pillars"][:3]):
         y = 1.85 + i * 1.12
         icon_circle(ctx, slide, p["icon"], "SUB", 0.6, y, 0.56)
-        text(ctx, slide, 1.38, y - 0.04, 5.4, 0.34, p["head"], size=15, bold=True, color="HEAD")
-        text(ctx, slide, 1.38, y + 0.3, 5.4, 0.66, p["body"], size=12, color="MUT")
+        text(ctx, slide, 1.38, y - 0.04, tw, 0.34, p["head"], size=15, bold=True, color="HEAD")
+        text(ctx, slide, 1.38, y + 0.3, tw, 0.66, p["body"], size=12, color="MUT")
     band = sp.get("band")
     if band:
         rect(ctx, slide, 0.6, 5.55, 12.13, 1.35, "LIGHT", radius=0.1)
@@ -398,11 +404,12 @@ def s_product_hero(ctx, prs, slide, sp, meta):
 
 
 def s_icon_rows_photo(ctx, prs, slide, sp, meta):
+    tw = 6.6 if sp.get("photo_main") else 11.5  # 사진 없으면 전체 폭
     for i, r in enumerate(sp["rows"][:3]):
         y = 1.95 + i * 1.24
         icon_circle(ctx, slide, r["icon"], "SUB", 0.6, y, 0.56)
-        text(ctx, slide, 1.38, y - 0.04, 6.6, 0.34, r["head"], size=15.5, bold=True, color="HEAD")
-        text(ctx, slide, 1.38, y + 0.31, 6.55, 0.72, r["body"], size=12.5, color="MUT")
+        text(ctx, slide, 1.38, y - 0.04, tw, 0.34, r["head"], size=15.5, bold=True, color="HEAD")
+        text(ctx, slide, 1.38, y + 0.31, tw, 0.72, r["body"], size=12.5, color="MUT")
     if sp.get("photo_main"):
         image(ctx, slide, sp["photo_main"], 8.75, 1.9, w=3.95, h=3.56)
     if sp.get("photo_thumb"):
@@ -494,7 +501,7 @@ def s_traction_evidence(ctx, prs, slide, sp, meta):
     if sp.get("tiles_footnote"):
         text(ctx, slide, 0.6, 5.75, 3.8, 0.6, sp["tiles_footnote"], size=11, color="MUT")
     pc = sp.get("pilot_card")
-    if pc:
+    if pc and pc.get("image"):
         rect(ctx, slide, 4.5, 1.85, 5.0, 4.4, "WHITE", line="BORDER", radius=0.12)
         img = Image.open(ctx.asset(pc["image"]))
         iw = 4.5
@@ -503,6 +510,11 @@ def s_traction_evidence(ctx, prs, slide, sp, meta):
         text(ctx, slide, 4.75, 2.15 + ih + 0.18, 4.5, 0.3, pc["head"], size=13, bold=True,
              color="HEAD")
         text(ctx, slide, 4.75, 2.15 + ih + 0.51, 4.5, 1.1, pc["body"], size=11.5, color="MUT")
+    elif pc:  # 이미지 없는 텍스트 카드 (증거 사진이 없는 덱용)
+        rect(ctx, slide, 4.5, 1.85, 5.0, 2.4, "WHITE", line="BORDER", radius=0.12)
+        icon_circle(ctx, slide, pc.get("icon", "trophy"), "SUB", 4.78, 2.12, 0.5)
+        text(ctx, slide, 4.78, 2.78, 4.45, 0.55, pc["head"], size=13.5, bold=True, color="HEAD")
+        text(ctx, slide, 4.78, 3.3, 4.45, 0.85, pc["body"], size=11.5, color="MUT")
     ev = sp.get("evidence")
     if ev:
         text(ctx, slide, 9.9, 1.85, 2.9, 0.3, ev.get("label", "Evidence"), size=12,

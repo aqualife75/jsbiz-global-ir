@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "jsbiz-global-ir deck_spec",
+  "description": "build_deck.py 입력. 슬라이드 타입별 필드 상세는 references/slide-library.md, 실동작 예시는 assets/spec.example.json 참조.",
+  "type": "object",
+  "required": ["slides"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "company": { "type": "string" },
+        "brand": { "type": "string", "description": "우상단 브랜드 표기 (기본: company 대문자)" }
+      }
+    },
+    "theme": { "enum": ["ocean", "midnight", "forest", "terracotta", "charcoal"], "default": "ocean" },
+    "assets_dir": { "type": "string", "description": "이미지 상대경로의 기준 폴더 (절대경로 권장)" },
+    "output": { "type": "string", "description": "출력 pptx 경로 (상대면 스펙 파일 기준)" },
+    "slides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": {
+            "enum": ["cover_dark", "stat_tiles", "product_hero", "icon_rows_photo",
+                     "comparison_table", "tech_steps_loop", "traction_evidence",
+                     "market_roadmap", "ask_dark", "team_contact"]
+          },
+          "kicker": {
+            "type": "object",
+            "properties": { "num": { "type": "string" }, "label": { "type": "string" } },
+            "description": "cover_dark 외 전 타입. label은 영문 대문자 권장 (예: WHO WE ARE)"
+          },
+          "title": { "type": "string", "description": "cover_dark 외 필수. 영문 55자 이내 1줄" },
+          "notes": { "type": "string", "description": "발표자 노트 영어 스크립트. 슬라이드당 40~70단어 단문" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "runs": {
+      "description": "부분 강조 텍스트(*_runs 필드). color는 역할명(HEAD/SUB/ACCENT/TXT/MUT/ICE/DEEP/RED) 또는 hex.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text"],
+        "properties": {
+          "text": { "type": "string" },
+          "bold": { "type": "boolean" },
+          "italic": { "type": "boolean" },
+          "color": { "type": "string" },
+          "break": { "type": "boolean", "description": "true면 이 런 뒤에 줄바꿈" }
+        }
+      }
+    }
+  }
+}

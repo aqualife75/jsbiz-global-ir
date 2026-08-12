@@ -1,0 +1,86 @@
+{
+  "_comment": "최소 실동작 예시 (외부 이미지 없이 빌드 가능한 4장). 전체 필드는 slide-library.md 참조. 실제 덱은 10장 구성을 따를 것.",
+  "meta": { "company": "HANBIT ROBOTICS", "brand": "HANBIT" },
+  "theme": "ocean",
+  "output": "example_deck.pptx",
+  "slides": [
+    {
+      "type": "cover_dark",
+      "program_line": "K-Global Demo Day  ·  Singapore 2027",
+      "headline_lines": [
+        { "text": "Warehouse robots" },
+        { "text": "that train themselves.", "accent": true }
+      ],
+      "subtitle": "HANBIT builds self-learning picking robots —\nproven in Korea's top 3PL warehouses, ready for Southeast Asia.",
+      "footer": "HANBIT ROBOTICS Co., Ltd.  ·  Seoul, South Korea",
+      "notes": "Hello, I am Gildong Hong, CEO of HANBIT ROBOTICS. We build picking robots that train themselves. No robot engineer needed on site. Today I will show you why this matters for Southeast Asia."
+    },
+    {
+      "type": "stat_tiles",
+      "kicker": { "num": "01", "label": "WHO WE ARE" },
+      "title": "A robotics company proven in Korea's logistics market",
+      "tiles": [
+        { "big": "$2.4M", "small": "2026 revenue" },
+        { "big": "+41%", "small": "revenue growth YoY" },
+        { "big": "18", "small": "warehouses in operation" },
+        { "big": "7", "small": "patents registered" }
+      ],
+      "left_heading": "What we do",
+      "left_rows": [
+        { "icon": "cogs", "text": "Self-learning picking robots for e-commerce fulfillment centers" },
+        { "icon": "building", "text": "Customers: top Korean 3PL operators and two global retailers" },
+        { "icon": "chart", "text": "Revenue model: RaaS subscription + installation + maintenance" }
+      ],
+      "chart": {
+        "label": "Revenue (USD M)",
+        "categories": ["2025", "2026", "2027 target"],
+        "actual": [1.7, 2.4, null],
+        "target": [null, null, 4.0],
+        "number_format": "0.0",
+        "max_val": 4.5
+      },
+      "bottom_line": "Certified: Venture Company · Corporate R&D Institute",
+      "notes": "First, who we are. We are a robotics company from Seoul. Eighteen warehouses run our robots every day. Last year we made 2.4 million dollars. We grew 41 percent. This company ships real robots."
+    },
+    {
+      "type": "comparison_table",
+      "kicker": { "num": "02", "label": "EXISTING SOLUTIONS" },
+      "title": "Fixed automation and manual picking each solve half the problem",
+      "columns": [
+        { "name": "Fixed automation", "sub": "(conveyor + sorter)" },
+        { "name": "Manual picking", "sub": "(labor-based)" },
+        { "name": "HANBIT", "sub": "self-learning robots" }
+      ],
+      "rows": [
+        { "label": "Handles SKU changes", "cells": ["times", "check", "check"] },
+        { "label": "24-hour operation", "cells": ["check", "times", "check"] },
+        { "label": "Setup under 2 weeks", "cells": ["times", "check", "check"] },
+        { "label": "On-site engineer needed", "cells": [ { "text": "Required", "color": "RED" }, "dash", { "text": "None", "color": "SUB" } ] }
+      ],
+      "closing_runs": [
+        { "text": "The only solution ", "bold": true, "color": "SUB" },
+        { "text": "that combines 24-hour operation with 2-week deployment — no robot engineer on site.", "color": "TXT" }
+      ],
+      "notes": "What is used today? Fixed automation is fast but breaks when products change. Manual picking is flexible but cannot run all night. We are the only solution that does both."
+    },
+    {
+      "type": "ask_dark",
+      "kicker": { "num": "03", "label": "THE ASK" },
+      "title": "We came to Singapore to find three partners",
+      "cards": [
+        { "icon": "handshake", "head": "3PL partners", "body": "Fulfillment operators in Singapore and Malaysia. Joint pilot, regional exclusivity open." },
+        { "icon": "building", "head": "Pilot warehouses", "body": "A 3-month proof-of-concept. We share all performance data openly." },
+        { "icon": "rocket", "head": "Strategic investors", "body": "To fund regional certification and a local service team. Terms open." }
+      ],
+      "outcome_runs": [
+        { "text": "With the right partners, by end-2028:  ", "color": "ICE" },
+        { "text": "5 pilot warehouses · local service team · first regional contracts.", "bold": true, "color": "ACCENT" }
+      ],
+      "cta_runs": [
+        { "text": "Come find us after the pitches. ", "bold": true, "color": "DEEP" },
+        { "text": "Live robot demo at our booth.   ·   Gildong Hong, CEO · ceo@hanbit.example", "color": "DEEP" }
+      ],
+      "notes": "Here is our ask. We came to find three partners. 3PL partners, pilot warehouses, and strategic investors. With the right partners, by end of 2028 we will run five pilot warehouses with a local service team. Come find us after the pitches."
+    }
+  ]
+}

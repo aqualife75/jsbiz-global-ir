@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jsbiz-global-ir 사용 가이드 — 내 IR덱을 해외 데모데이용 영문 피칭덱으로</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<style>
+:root{
+  --font:'Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --font-mono:'D2Coding','Consolas',monospace;
+  --brand:#FF385C; --brand-strong:#E03150; --brand-soft:#FFE4EA;
+  --text:#1E293B; --text-muted:#94A3B8; --heading:#374151;
+  --bg:#F8FAFC; --surface:#FFFFFF; --surface-alt:#F1F5F9; --border:#E2E8F0;
+  --success:#059669; --warning:#D97706; --danger:#DC2626; --info:#2563EB;
+  --code-bg:#1E293B;
+  --radius-sm:6px; --radius:10px; --radius-lg:16px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,.06);
+  --shadow:0 4px 12px rgba(15,23,42,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;font-size:15px}
+.wrap{max-width:920px;margin:0 auto;padding:0 24px 64px}
+
+/* hero */
+.hero{background:var(--surface);border-bottom:1px solid var(--border);padding:48px 0 40px;margin-bottom:48px}
+.hero .wrap{padding-bottom:0}
+.hero .badge{display:inline-block;background:var(--brand-soft);color:var(--brand-strong);
+  font-size:12px;font-weight:600;padding:4px 12px;border-radius:var(--radius-sm);margin-bottom:16px;letter-spacing:.02em}
+h1{font-size:28px;font-weight:700;line-height:1.3;letter-spacing:-.02em;color:var(--text)}
+h1 .accent{color:var(--brand)}
+.hero p.lead{margin-top:12px;font-size:16px;color:var(--heading)}
+.hero .meta{margin-top:16px;font-size:13px;color:var(--text-muted)}
+
+/* sections */
+h2{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--text);
+  border-left:4px solid var(--brand);padding-left:12px;margin:48px 0 16px}
+h3{font-size:17px;font-weight:600;color:var(--heading);margin:24px 0 8px}
+p+p{margin-top:8px}
+ul,ol{padding-left:24px;margin:8px 0}
+li{margin:4px 0}
+strong{font-weight:700}
+a{color:var(--info)}
+
+/* step number chip */
+.step{display:flex;align-items:center;gap:12px;margin:48px 0 16px}
+.step .no{flex:none;width:32px;height:32px;border-radius:50%;background:var(--brand);color:#fff;
+  font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center}
+.step h2{border:none;padding:0;margin:0}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:24px;box-shadow:var(--shadow-sm)}
+.card .icon{font-size:22px;margin-bottom:8px}
+.card h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--heading)}
+.card .sub{font-size:12px;color:var(--text-muted);margin-top:8px}
+
+/* code block */
+.codebox{position:relative;margin:12px 0}
+pre{background:var(--code-bg);color:#E2E8F0;font-family:var(--font-mono);font-size:13.5px;
+  border-radius:var(--radius);padding:16px 96px 16px 16px;overflow-x:auto;line-height:1.6}
+pre .c{color:#94A3B8}
+.copy{position:absolute;top:10px;right:10px;background:#334155;color:#E2E8F0;border:none;
+  font-family:var(--font);font-size:12px;font-weight:600;padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer}
+.copy:hover{background:#475569}
+.copy.done{background:var(--success)}
+
+/* callout */
+.callout{border-left:4px solid var(--brand);background:var(--surface-alt);border-radius:var(--radius);
+  padding:16px;margin:16px 0;font-size:14px}
+.callout.warn{border-left-color:var(--warning)}
+.callout.danger{border-left-color:var(--danger)}
+.callout.info{border-left-color:var(--info)}
+.callout b.tag{display:block;font-size:12px;font-weight:700;letter-spacing:.04em;margin-bottom:4px}
+.callout.warn b.tag{color:var(--warning)} .callout.danger b.tag{color:var(--danger)}
+.callout.info b.tag{color:var(--info)} .callout b.tag{color:var(--brand)}
+
+/* table */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;background:var(--surface);
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+th{background:var(--surface-alt);text-align:left;font-weight:600;padding:10px 12px;border-bottom:1px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td .chip{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* timeline */
+.timeline{margin:16px 0;border-left:2px solid var(--border);padding-left:20px}
+.timeline .t{position:relative;padding:0 0 16px}
+.timeline .t::before{content:'';position:absolute;left:-25.5px;top:7px;width:9px;height:9px;
+  border-radius:50%;background:var(--brand)}
+.timeline .t b{display:block;font-size:14px}
+.timeline .t span{font-size:13px;color:var(--text-muted)}
+
+/* faq */
+details{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px 16px;margin:8px 0}
+summary{font-weight:600;cursor:pointer;font-size:14.5px}
+details p{margin-top:8px;font-size:14px;color:var(--heading)}
+
+footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--border);
+  font-size:13px;color:var(--text-muted)}
+footer a{color:var(--brand);font-weight:600;text-decoration:none}
+
+@media (max-width:768px){
+  .cards{grid-template-columns:1fr}
+  pre{padding-right:16px}
+  .copy{position:static;display:inline-block;margin-top:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="badge">정석Biz 무료 배포 스킬</span>
+    <h1>내 국문 IR덱, <span class="accent">해외 데모데이용 영문 피칭덱</span>으로<br>10분 만에 재구성하기</h1>
+    <p class="lead">jsbiz-global-ir는 갖고 있는 IR 자료(PDF/PPT)를 넣으면, 해외 심사역 눈높이의 영문 10장 발표덱과
+    영어 스크립트까지 만들어 주는 Claude Code 스킬입니다. 번역이 아니라 <strong>Y-Combinator·German Accelerator
+    피칭 방법론으로 스토리를 다시 짜는 것</strong>이 핵심입니다.</p>
+    <div class="meta">제작 · 정석Biz(이동건) &nbsp;|&nbsp; 대상 · 코딩 몰라도 되는 창업자 &nbsp;|&nbsp; 소요 · 설치 10분 + 실행 10~15분</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<h2>무엇이 나오나요?</h2>
+<div class="cards">
+  <div class="card"><div class="icon">🎯</div><h4>영문 10장 피칭덱 (PPTX)</h4>
+    <p>표지 → 회사 → 제품 → 문제 → 기존 솔루션 한계 → 기술 → 트랙션 → 진출 전략 → Ask → 팀.
+    원본 덱의 제품 사진·인증서·실증 자료를 자동으로 추출해 그대로 살립니다.</p>
+    <div class="sub">발표자 노트에 슬라이드별 3분 영어 스크립트 내장</div></div>
+  <div class="card"><div class="icon">📄</div><h4>PDF 버전</h4>
+    <p>주최 측 제출·이메일 공유·인쇄용. PPTX와 동일한 내용입니다.</p></div>
+  <div class="card"><div class="icon">✅</div><h4>한국어 가이드 문서</h4>
+    <p>예상 질문(Q&amp;A) 답변 방향, 발표 연습 팁, 그리고 발표 전 <strong>반드시 확인해야 할 항목 목록</strong>이 들어 있습니다.</p></div>
+</div>
+
+<div class="step"><div class="no">0</div><h2>준비물 — 처음 한 번만</h2></div>
+
+<h3>① Claude Code 설치</h3>
+<p>Anthropic의 AI 코딩 도우미입니다. 코딩용이지만 이런 문서 작업도 훌륭하게 해냅니다.
+<a href="https://claude.com/claude-code" target="_blank">claude.com/claude-code</a>에서 내 컴퓨터(Windows/Mac)에 맞게 설치하고,
+Claude 계정으로 로그인하세요. 데스크탑 앱 또는 터미널 어느 쪽이든 됩니다.</p>
+
+<h3>② Python 설치</h3>
+<p><a href="https://python.org" target="_blank">python.org</a>에서 최신 버전을 설치합니다.
+<strong>Windows는 설치 첫 화면에서 "Add Python to PATH" 체크박스를 꼭 켜 주세요.</strong> Mac은 대부분 이미 설치되어 있습니다.</p>
+
+<h3>③ 필요 라이브러리 설치</h3>
+<p>터미널(Windows: PowerShell / Mac: 터미널)을 열고 아래 한 줄을 붙여넣으세요.</p>
+<div class="codebox"><pre id="c1">pip install python-pptx pymupdf pillow</pre><button class="copy" data-t="c1">복사</button></div>
+
+<div class="callout info"><b class="tag">선택 사항</b>
+컴퓨터에 <strong>PowerPoint 또는 LibreOffice</strong>가 있으면 Claude가 완성된 슬라이드를 이미지로 렌더링해서
+스스로 검수까지 합니다. 없어도 덱은 정상적으로 만들어지며, 마지막 확인만 직접 하시면 됩니다.</div>
+
+<div class="step"><div class="no">1</div><h2>스킬 설치 — 두 줄이면 끝</h2></div>
+<p>Claude Code를 실행하고, 채팅창에 아래 두 명령을 차례로 입력합니다.</p>
+<div class="codebox"><pre id="c2">/plugin marketplace add aqualife75/jsbiz-global-ir
+/plugin install global-ir@jsbiz</pre><button class="copy" data-t="c2">복사</button></div>
+<p>설치가 끝나면 <strong>새 세션(새 대화)을 시작</strong>하세요. 이제 스킬이 자동으로 준비되어 있습니다.</p>
+
+<div class="step"><div class="no">2</div><h2>실행 — 한 문장으로 요청</h2></div>
+<p>내 IR 덱 파일(PDF 또는 PPTX)을 준비하고, 아래 템플릿의 [ ] 부분만 바꿔 붙여넣으세요.
+파일 경로는 <strong>파일을 채팅창에 드래그&amp;드롭</strong>하면 자동으로 입력됩니다.</p>
+<div class="codebox"><pre id="c3">[내 IR덱.pdf] 를 [싱가포르 데모데이]용 영어 [3]분 발표 덱으로 재구성해줘.
+청중은 [데모데이 심사역과 현지 기업]이고, Ask는 [현지 파트너 발굴 + 투자 유치]야.</pre><button class="copy" data-t="c3">복사</button></div>
+
+<p>그 다음은 Claude가 알아서 진행합니다. 보통 10~15분이 걸립니다.</p>
+<div class="timeline">
+  <div class="t"><b>원본 덱 판독</b><span>모든 페이지를 읽고 매출·인증·실증 같은 사실 목록을 만듭니다</span></div>
+  <div class="t"><b>증거자료 추출</b><span>제품 사진·인증서·고객 로고를 원본에서 뽑아내고, 한글이 박힌 이미지는 잘라냅니다</span></div>
+  <div class="t"><b>스토리 재구성</b><span>YC·독일 액셀러레이터 방법론으로 10장 구성과 영어 스크립트를 작성합니다</span></div>
+  <div class="t"><b>덱 생성 + 자동 검수</b><span>PPTX를 만들고 슬라이드를 하나씩 렌더링해 겹침·오류를 스스로 고칩니다</span></div>
+</div>
+
+<div class="callout"><b class="tag">TIP</b>
+중간에 Claude가 행사명·발표시간 등을 물어볼 수 있습니다. 아는 만큼만 답하면 되고,
+모르는 건 "아직 미정"이라고 하면 기본값(3분·데모데이)으로 진행합니다.</div>
+
+<div class="step"><div class="no">3</div><h2>결과물 확인 — 이 3가지만 보세요</h2></div>
+
+<h3>① 발표자 노트에서 영어 스크립트 보기</h3>
+<p>PPTX를 열고 PowerPoint 메뉴에서 <strong>보기 → 슬라이드 노트</strong>(또는 하단 "메모" 버튼)를 누르면
+슬라이드마다 그대로 읽으면 되는 영어 대본이 들어 있습니다. 짧은 문장으로 되어 있어 외우기 쉽습니다.</p>
+
+<h3>② 가이드 문서의 [확인 필요] 목록</h3>
+<div class="callout danger"><b class="tag">가장 중요</b>
+가이드 문서 끝의 <strong>[확인 필요] 목록은 발표 전에 반드시 직접 확인하세요.</strong>
+이 스킬은 원본에 없는 숫자를 지어내지 않는 대신, 확인이 필요한 것(이름 영문 표기, 행사 공식 명칭,
+해외 인증 여부 등)을 이 목록에 모아 둡니다. 슬라이드의 모든 숫자와 회사 정보의 최종 책임은 발표자에게 있습니다.</div>
+
+<h3>③ 예상 Q&amp;A</h3>
+<p>해외 심사역이 거의 반드시 묻는 질문("고객이 정확히 누구인가?", "누가 당신 회사를 인수할 것 같은가?")과
+답변 방향이 정리되어 있습니다. 발표 연습할 때 함께 소리 내어 연습하세요.</p>
+
+<h2>수정 요청은 대화로</h2>
+<p>다시 처음부터 만들 필요 없습니다. 같은 대화에서 이렇게 요청하면 몇십 초 안에 해당 부분만 고쳐서 다시 만들어 줍니다.</p>
+<div class="codebox"><pre id="c4">3번 슬라이드 제품명을 "AirPure Pro"로 바꿔줘
+7번 슬라이드 매출 숫자를 2.1억으로 수정해줘
+테마를 midnight로 바꿔서 다시 만들어줘
+5분 발표 버전으로 스크립트를 늘려줘</pre><button class="copy" data-t="c4">복사</button></div>
+
+<h2>디자인 테마 5종</h2>
+<p>업종에 맞는 테마를 Claude가 골라 주지만, 원하는 테마를 직접 지정해도 됩니다.</p>
+<table>
+  <tr><th style="width:130px">테마</th><th>느낌</th><th>어울리는 업종</th></tr>
+  <tr><td><span class="chip" style="background:#0A7A8C"></span><b>ocean</b> (기본)</td><td>딥네이비 + 민트, 신뢰감</td><td>하드웨어 · 환경 · 헬스케어 · IoT</td></tr>
+  <tr><td><span class="chip" style="background:#1E2761"></span><b>midnight</b></td><td>짙은 남색, 기업용 톤</td><td>B2B SaaS · 핀테크 · 보안 · 데이터</td></tr>
+  <tr><td><span class="chip" style="background:#2C5F2D"></span><b>forest</b></td><td>그린, 지속가능성</td><td>농식품 · ESG · 바이오 · 에너지</td></tr>
+  <tr><td><span class="chip" style="background:#B85042"></span><b>terracotta</b></td><td>따뜻한 소비자 톤</td><td>커머스 · F&amp;B · 라이프스타일</td></tr>
+  <tr><td><span class="chip" style="background:#36454F"></span><b>charcoal</b></td><td>차콜 + 앰버, 미니멀</td><td>디자인 · 럭셔리 · 콘텐츠 · AI</td></tr>
+</table>
+
+<h2>부록 — OpenAI Codex에서도 쓸 수 있나요?</h2>
+<p>네, 가능합니다(고급 사용자용). Claude Code 없이 OpenAI의 Codex CLI를 쓰는 분은
+저장소를 통째로 내려받아 그 폴더 안에서 실행하면 됩니다. 저장소에 들어 있는 <strong>AGENTS.md</strong> 파일이
+Codex용 작업 지침서 역할을 하며, Codex가 자동으로 읽습니다.</p>
+<div class="codebox"><pre id="c5">git clone https://github.com/aqualife75/jsbiz-global-ir
+cd jsbiz-global-ir
+pip install python-pptx pymupdf pillow
+codex</pre><button class="copy" data-t="c5">복사</button></div>
+<p>그 다음 Codex에게 STEP 2와 같은 문장으로 요청하면 됩니다.</p>
+<div class="callout warn"><b class="tag">알아두세요</b>
+스킬 자동 발동과 덱 여러 개 병렬 처리는 Claude Code 전용 기능입니다. 또한 Windows에서 Codex CLI는
+WSL(리눅스 환경) 설치를 권장하므로, <strong>비개발자라면 Claude Code 경로를 추천</strong>합니다.</div>
+
+<h2>자주 묻는 질문</h2>
+
+<details><summary>코딩을 전혀 모르는데 할 수 있나요?</summary>
+<p>네. 설치 단계(위의 0~1번)만 넘기면 그 다음은 전부 한국어 대화입니다. 명령어는 이 페이지의 "복사" 버튼으로 붙여넣기만 하면 됩니다.</p></details>
+
+<details><summary>"pip를 찾을 수 없다"는 오류가 나요.</summary>
+<p>Python 설치 때 "Add Python to PATH"를 체크하지 않은 경우입니다. Python을 다시 설치하면서 체크박스를 켜 주세요.
+그래도 안 되면 <code>python -m pip install python-pptx pymupdf pillow</code>로 시도해 보세요.</p></details>
+
+<details><summary>Mac에서도 되나요?</summary>
+<p>네. Windows·Mac 모두 지원합니다. 슬라이드 자동 검수는 PowerPoint(Windows) 또는 LibreOffice(무료, Mac/Windows)가 있으면 더 정밀해집니다.</p></details>
+
+<details><summary>"렌더러가 없어 텍스트 검수로 대체했다"고 나와요.</summary>
+<p>PowerPoint/LibreOffice가 없는 환경입니다. 덱 자체는 정상적으로 만들어졌으니, 파일을 열어 슬라이드가 깨진 곳이 없는지 직접 한 번 훑어보시면 됩니다. LibreOffice(무료)를 설치하면 다음부터 자동 검수됩니다.</p></details>
+
+<details><summary>영어를 잘 못하는데 발표할 수 있을까요?</summary>
+<p>스크립트가 일부러 짧은 문장(1문장 = 1정보)으로 작성됩니다. 이 방식이 원어민식 긴 문장보다 전달력이 좋고 외우기도 쉽습니다.
+가이드 문서의 발표 연습 팁을 따라 소리 내어 연습하세요.</p></details>
+
+<details><summary>제 IR 자료가 외부로 나가지 않나요?</summary>
+<p>모든 파일 처리(이미지 추출·덱 생성)는 내 컴퓨터 안에서만 이루어집니다. 다만 덱의 텍스트 내용은 Claude(Anthropic)와의
+대화로 처리되므로, 회사의 보안 정책상 AI 입력이 금지된 극비 자료라면 해당 수치를 가리고 사용하세요.</p></details>
+
+<details><summary>영문 덱을 처음부터 새로 만들어 줄 수도 있나요?</summary>
+<p>이 스킬은 "기존 덱의 재구성" 전용입니다. 덱이 아예 없다면 먼저 국문 초안을 만든 뒤(정석Biz 영상 참고) 이 스킬로 재구성하는 순서를 추천합니다.</p></details>
+
+<div class="callout warn"><b class="tag">발표 전 체크</b>
+① 모든 숫자를 원본과 대조했다 &nbsp;② [확인 필요] 목록을 처리했다 &nbsp;③ 스크립트를 3회 이상 소리 내어 연습했다
+&nbsp;④ 원본 국문 덱을 Q&amp;A 대비용으로 함께 챙겼다</div>
+
+<footer>
+  <p><strong>정석Biz</strong> — 정부지원사업·IR 실전 가이드 유튜브 채널 ·
+  <a href="https://www.youtube.com/@정석Biz" target="_blank">youtube.com/@정석Biz</a></p>
+  <p style="margin-top:4px">jsbiz-global-ir는 무료로 배포됩니다. 상업적 재판매는 금지하며, 소개 시 출처(정석Biz)를 표기해 주세요.</p>
+</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var t = document.getElementById(btn.dataset.t).innerText;
+    navigator.clipboard.writeText(t).then(function(){
+      btn.textContent = '복사됨 ✓'; btn.classList.add('done');
+      setTimeout(function(){ btn.textContent='복사'; btn.classList.remove('done'); }, 1600);
+    });
+  });
+});
+</script>
+</body>
+</html>

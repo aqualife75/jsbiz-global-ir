@@ -1,0 +1,19 @@
+{
+  "name": "jsbiz",
+  "owner": {
+    "name": "정석Biz (이동건)",
+    "url": "https://www.youtube.com/@정석Biz"
+  },
+  "metadata": {
+    "description": "정석Biz 창업 실전 도구 마켓플레이스",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "global-ir",
+      "source": "./plugins/global-ir",
+      "description": "국문 IR 덱을 해외 데모데이용 영문 10장 피칭덱(PPTX+영어 스크립트+가이드)으로 재구성 — YC·German Accelerator 방법론 기반",
+      "author": { "name": "정석Biz (이동건)" }
+    }
+  ]
+}

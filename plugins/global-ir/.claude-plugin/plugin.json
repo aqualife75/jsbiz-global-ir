@@ -1,0 +1,6 @@
+{
+  "name": "global-ir",
+  "description": "국문 IR 덱 → 해외 데모데이 영문 피칭덱 재구성 (jsbiz-global-ir 스킬 + pitch-deck-builder 에이전트)",
+  "version": "0.1.0",
+  "author": { "name": "정석Biz (이동건)" }
+}
